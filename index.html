@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spares & Fabrication Marketplace</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #94a3b8;
+        --accent: #ff6a00;
+        --accent-2: #ff914d;
+        --glass: rgba(255, 255, 255, 0.04);
+        --radius-lg: 16px;
+        --text-light: #e6eef8;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: linear-gradient(180deg, #071025 0%, #071827 60%);
+        color: var(--text-light);
+        line-height: 1.45;
+        overflow-x: hidden;
+      }
+      .card-soft {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+        backdrop-filter: blur(10px);
+      }
+      .glass-card {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 32px rgba(2, 6, 23, 0.4);
+      }
+      /* Header & Navigation */
+      .navbar {
+        background: rgba(15, 23, 36, 0.9);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .navbar-brand {
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        color: var(--accent) !important;
+        font-size: 1.5rem;
+      }
+      .nav-link {
+        color: var(--muted) !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--accent) !important;
+        font-weight: 600;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      /* Hero Section */
+      .hero {
+        padding: 5rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(255, 106, 0, 0.1) 0%,
+          transparent 50%
+        );
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+      .hero-title {
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--text-light) 0%,
+          var(--accent-2) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-sub {
+        color: var(--muted);
+        font-size: 1.2rem;
+        max-width: 55ch;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+      .cta-button {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: white;
+        padding: 15px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(255, 106, 0, 0.3);
+        border: none;
+        font-size: 1.1rem;
+      }
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(255, 106, 0, 0.4);
+        color: white;
+      }
+      .hero-image img {
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 60px rgba(2, 6, 23, 0.8);
+      }
+      /* Categories Section */
+      .categories {
+        padding: 5rem 0;
+        background: linear-gradient(
+          180deg,
+          rgba(7, 16, 37, 0.6) 0%,
+          rgba(11, 18, 32, 0.8) 100%
+        );
+      }
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .section-title h2 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--text-light) 0%,
+          var(--accent) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .section-title p {
+        color: var(--muted);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .category-card {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(15px);
+        height: 100%;
+      }
+      .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(2, 6, 23, 0.8);
+        border-color: rgba(255, 106, 0, 0.3);
+      }
+      .category-icon {
+        font-size: 3rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+      }
+      .category-card h4 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-light);
+      }
+      .category-card p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      /* Gallery Section */
+      .gallery {
+        padding: 5rem 0;
+      }
+      .gallery-filters {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+      .filter-btn {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--muted);
+        padding: 12px 24px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 106, 0, 0.3);
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .gallery-item {
+        opacity: 1;
+        transform: scale(1);
+        transition: all 0.4s ease;
+      }
+      .gallery-item.hidden {
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+      .gallery-card {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        backdrop-filter: blur(15px);
+        transition: all 0.3s ease;
+      }
+      .gallery-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(2, 6, 23, 0.6);
+        border-color: rgba(255, 106, 0, 0.2);
+      }
+      .gallery-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+      }
+      .gallery-info {
+        padding: 1.5rem;
+      }
+      .gallery-info h4 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-light);
+      }
+      .gallery-info p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      /* About Section */
+      .about {
+        padding: 5rem 0;
+        background: linear-gradient(
+          180deg,
+          rgba(7, 16, 37, 0.4) 0%,
+          rgba(11, 18, 32, 0.6) 100%
+        );
+      }
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .about-text h2 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--text-light) 0%,
+          var(--accent) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .about-text p {
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+      .about-features {
+        list-style: none;
+        padding: 0;
+        margin-top: 2rem;
+      }
+      .about-features li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        color: var(--text-light);
+      }
+      .about-features i {
+        color: var(--accent);
+        font-size: 1.2rem;
+      }
+      .about-image {
+        position: relative;
+      }
+      .about-image img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 60px rgba(2, 6, 23, 0.8);
+      }
+      /* Contact Section */
+      .contact {
+        padding: 5rem 0;
+      }
+      .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+      .contact-info,
+      .contact-form {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 2.5rem;
+        border-radius: var(--radius-lg);
+        backdrop-filter: blur(15px);
+      }
+      .contact-info h3,
+      .contact-form h3 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: var(--text-light);
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .contact-item i {
+        color: var(--accent);
+        font-size: 1.3rem;
+        width: 25px;
+      }
+      .contact-item strong {
+        color: var(--text-light);
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-light);
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        font-size: 1rem;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .form-group textarea {
+        height: 120px;
+        resize: vertical;
+      }
+      .submit-btn {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 106, 0, 0.4);
+      }
+      /* Footer */
+      .footer {
+        background: linear-gradient(
+          180deg,
+          rgba(2, 6, 23, 0.6),
+          rgba(2, 6, 23, 0.9)
+        );
+        padding: 3rem 0 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 2rem;
+      }
+      .footer-section h3 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+      }
+      .footer-section p,
+      .footer-section li {
+        margin-bottom: 0.8rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+      .footer-section a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .footer-section a:hover {
+        color: var(--accent);
+      }
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        color: var(--muted);
+      }
+      .social-links a:hover {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+        transform: translateY(-3px);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 2rem;
+        text-align: center;
+        color: var(--muted);
+      }
+      /* Scroll to top button */
+      .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(255, 106, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      .scroll-to-top:hover {
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 106, 0, 0.4);
+      }
+      /* Loading Animation */
+      .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #071025 0%, #071827 60%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        transition: opacity 0.5s ease;
+      }
+      .loading.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top: 3px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in-up {
+        animation: fadeInUp 0.6s ease forwards;
+      }
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero {
+          padding: 3rem 0 2rem;
+        }
+        .hero-title {
+          font-size: 2rem;
+        }
+        .hero-sub {
+          font-size: 1.1rem;
+        }
+        .section-title h2 {
+          font-size: 2rem;
+        }
+        .about-content,
+        .contact-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .footer-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+        .filter-btn {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero {
+          padding: 2rem 0 1.5rem;
+        }
+        .hero-title {
+          font-size: 1.8rem;
+        }
+        .contact-info,
+        .contact-form {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#home">
+          <i class="bi bi-gear-fill me-2"></i>LAL Holdings
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMain"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#categories">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <!-- Hero -->
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+              <div class="hero-content">
+                <h1 class="hero-title">
+                  Quality spares & trusted fabrication — all in one marketplace
+                </h1>
+                <p class="hero-sub">
+                  Shop car spares, cupboards, carpentry, ceilings, gate welding
+                  and specialised metalwork. Local craftsmen, fast delivery, and
+                  safe checkout.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                  <a href="#gallery" class="cta-button">
+                    <i class="bi bi-shop"></i> Shop Now
+                  </a>
+                  <a href="#contact" class="btn btn-outline-light btn-lg"
+                    >Get a Quote</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="hero-image">
+                <img
+                  src="./images/nelson.jpg"
+                  alt="Professional Workshop"
+                  class="img-fluid h-50"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Categories -->
+      <section id="categories" class="categories">
+        <div class="container">
+          <div class="section-title">
+            <h2>Browse Our Categories</h2>
+            <p>
+              Comprehensive solutions across automotive, construction, and
+              fabrication industries
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-sm-6 col-lg-4">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="bi bi-car-front-fill"></i>
+                </div>
+                <h4>Car Spares</h4>
+                <p>
+                  Engine parts, filters, belts, brake components & electrical
+                  systems
+                </p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="fas fa-cabinet-filing"></i>
+                </div>
+                <h4>Cupboards</h4>
+                <p>Custom finishes, pre-made cabinets & hardware solutions</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="fas fa-hammer"></i>
+                </div>
+                <h4>Carpentry</h4>
+                <p>Doors, shelving, bespoke carpentry & wood materials</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="fas fa-wrench"></i>
+                </div>
+                <h4>Gate Welding</h4>
+                <p>Gates, railings, frames & security solutions</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="fas fa-home"></i>
+                </div>
+                <h4>Ceilings</h4>
+                <p>Gypsum boards, suspended systems & installations</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="fas fa-welding"></i>
+                </div>
+                <h4>General Welding</h4>
+                <p>Repairs, fabrication & metal structures</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Gallery -->
+      <section id="gallery" class="gallery">
+        <div class="container">
+          <div class="section-title">
+            <h2>Product Gallery</h2>
+            <p>
+              Explore our extensive range of quality spare parts and materials
+            </p>
+          </div>
+          <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">
+              <i class="bi bi-grid category-icon"></i>All Products
+            </button>
+            <button class="filter-btn" data-filter="automotive">
+              <i class="bi bi-car-front category-icon"></i>Automotive
+            </button>
+            <button class="filter-btn" data-filter="carpentry">
+              <i class="bi bi-hammer category-icon"></i>Carpentry
+            </button>
+            <button class="filter-btn" data-filter="welding">
+              <i class="bi bi-fire category-icon"></i>Welding
+            </button>
+            <button class="filter-btn" data-filter="cupboards">
+              <i class="bi bi-door-open category-icon"></i>Cupboards
+            </button>
+            <button class="filter-btn" data-filter="ceiling">
+              <i class="bi bi-house-up category-icon"></i>Ceiling
+            </button>
+          </div>
+
+          <div class="gallery-grid">
+            <!-- Automotive Products -->
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/bumper.jpg"
+                  alt="Car Engine Parts"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Engine Components</h4>
+                  <p>High-quality pistons, gaskets, and engine parts</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/cupboard_2.jpg"
+                  alt="Gate Frame"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Gate Frame</h4>
+                  <p>Complete gate frames and hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/green_wardrop.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/white_cardboard.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/head_board.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/motor.jpg"
+                  alt="Welding Safety Gear"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Safety Gear</h4>
+                  <p>Welding masks and protective equipment</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/cylinder.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/motor_1.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/engine_1.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/tighter.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/pratley.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carpentry Products -->
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/cupboard_1.jpg"
+                  alt="Wood Materials"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Wood Materials</h4>
+                  <p>Quality lumber, plywood, and wood supplies</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/carpetry_1.jpg"
+                  alt="Gate Frame"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Gate Frame</h4>
+                  <p>Complete gate frames and hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/wardrop.jpg"
+                  alt="Gate Frame"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Gate Frame</h4>
+                  <p>Complete gate frames and hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/car_parts.jpg"
+                  alt="Brake System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Brake System</h4>
+                  <p>Complete brake pads and discs set</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/engine.jpg"
+                  alt="Woodworking Tools"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Professional Tools</h4>
+                  <p>Premium hammers, saws, and hand tools</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="automotive">
+              <div class="gallery-card">
+                <img
+                  src="./images/lights.jpg"
+                  alt="Welding Machine"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Welding Machine</h4>
+                  <p>Professional welding equipment</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/wardrop_2.jpg"
+                  alt="Gate Frame"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Gate Frame</h4>
+                  <p>Complete gate frames and hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/cupetry.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/hanging_cupboard.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/lovely_cupboard.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/wardrop_3.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Welding Products -->
+            <div class="gallery-item" data-category="welding">
+              <div class="gallery-card">
+                <img
+                  src="./images/gate.jpg"
+                  alt="Welding Safety Gear"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Safety Gear</h4>
+                  <p>Welding masks and protective equipment</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/large_wardrop.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/white_wardrop.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="carpentry">
+              <div class="gallery-card">
+                <img
+                  src="./images/white_wardrop_1.jpg"
+                  alt="Suspension System"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Suspension Systems</h4>
+                  <p>T-bars, wires, and mounting hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/mount_tv.jpg"
+                  alt="Cabinet Hardware"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Cabinet Hardware</h4>
+                  <p>Handles, hinges, and drawer slides</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/carpetry.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/nice_cupboard.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cupboard Products -->
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/cupboard_3.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/nice_view.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/blend_cupboard.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/blue_cupboard.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery-item" data-category="ceiling">
+              <div class="gallery-card">
+                <img
+                  src="./images/making ceiling.jpg"
+                  alt="Ceiling Tiles"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Ceiling Tiles</h4>
+                  <p>Suspended ceiling tiles and grid systems</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="ceiling">
+              <div class="gallery-card">
+                <img
+                  src="./images/ceiling_2.jpg"
+                  alt="Ceiling Tiles"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Ceiling Tiles</h4>
+                  <p>Suspended ceiling tiles and grid systems</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ceiling Products -->
+            <div class="gallery-item" data-category="ceiling">
+              <div class="gallery-card">
+                <img
+                  src="./images/ceiling_3.jpg"
+                  alt="Ceiling Tiles"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Ceiling Tiles</h4>
+                  <p>Suspended ceiling tiles and grid systems</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="ceiling">
+              <div class="gallery-card">
+                <img
+                  src="./images/ceiling_4.jpg"
+                  alt="Ceiling Tiles"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Ceiling Tiles</h4>
+                  <p>Suspended ceiling tiles and grid systems</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/brown_cupboard.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="cupboards">
+              <div class="gallery-card">
+                <img
+                  src="./images/cupboard.jpg"
+                  alt="Drawer Systems"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Drawer Systems</h4>
+                  <p>Sliding mechanisms and drawer hardware</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="ceiling">
+              <div class="gallery-card">
+                <img
+                  src="./images/shape_celing.jpg"
+                  alt="Ceiling Tiles"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Ceiling Tiles</h4>
+                  <p>Suspended ceiling tiles and grid systems</p>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-item" data-category="ceiling">
+              <div class="gallery-card">
+                <img
+                  src="./images/ceiling.jpg"
+                  alt="Ceiling Tiles"
+                  class="gallery-image"
+                />
+                <div class="gallery-info d-none">
+                  <h4>Ceiling Tiles</h4>
+                  <p>Suspended ceiling tiles and grid systems</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="about">
+        <div class="container">
+          <div class="about-content">
+            <div class="about-text">
+              <h2>About AutoHome</h2>
+              <p>
+                With over years of experience in the spare parts and fabrication
+                industry, <strong>LAL Holdings </strong> has established itself
+                as the leading marketplace connecting customers with quality
+                products and skilled craftsmen.
+              </p>
+              <p>
+                We specialize in providing comprehensive solutions across
+                automotive, and manufacturing sectors. Our platform brings
+                together the best suppliers and fabricators to ensure you get
+                premium quality at competitive prices.
+              </p>
+              <ul class="about-features">
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> 1+ Years of Industry
+                  Experience
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Quality Guaranteed
+                  Products
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Expert Technical
+                  Support
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Fast & Reliable Delivery
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Competitive Pricing
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Custom Solutions Available
+                </li>
+              </ul>
+            </div>
+            <div class="about-image">
+              <img
+                src="./images/nelson_1.jpg"
+                alt="Professional Workshop"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Contact -->
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="section-title">
+            <h2>Get In Touch</h2>
+            <p>
+              Ready to find the perfect parts for your project? Contact our
+              expert team for personalized assistance.
+            </p>
+          </div>
+          <div class="contact-content">
+            <div class="contact-info">
+              <h3>Contact Information</h3>
+              <div class="contact-item">
+                <i class="bi bi-geo-alt-fill"></i>
+                <div>
+                  <strong>Address</strong><br />
+                  618 Belfast Trust<br />
+                  Mkhuhlu 1246
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <strong>Phone</strong><br />
+                  +27 73 094 8352
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="bi bi-envelope-fill"></i>
+                <div>
+                  <strong>Email</strong><br />
+                  nelson@badumark.com
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <strong>Business Hours</strong><br />
+                  Mon - Fri: 8:00 AM - 6:00 PM<br />
+                  Sat - Sun: 9:00 AM - 4:00 PM
+                </div>
+              </div>
+            </div>
+            <div class="contact-form">
+              <h3>Send us a Message</h3>
+              <form id="contactForm">
+                <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input type="text" id="name" name="name" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" />
+                </div>
+                <div class="form-group">
+                  <label for="subject">Subject</label>
+                  <input type="text" id="subject" name="subject" required />
+                </div>
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    placeholder="Tell us about your spare parts needs..."
+                  ></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-paper-plane"></i>
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>AutoHome</h3>
+            <p>
+              Your trusted marketplace for quality spare parts and professional
+              fabrication services across multiple industries.
+            </p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#categories">Categories</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Our Services</h3>
+            <ul>
+              <li><a href="#">Automotive Parts</a></li>
+              <li><a href="#">Carpentry Tools</a></li>
+              <li><a href="#">Welding Supplies</a></li>
+              <li><a href="#">Gate Hardware</a></li>
+              <li><a href="#">Ceiling Components</a></li>
+              <li><a href="#">Cupboard Hardware</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Info</h3>
+            <ul>
+              <li><i class="fas fa-map-marker-alt"></i> 618 Belfast Trust</li>
+              <li><i class="fas fa-phone"></i> +27 73 094 8352</li>
+              <li><i class="fas fa-envelope"></i> nelson@badumark.com</li>
+              <li>
+                <i class="fas fa-clock"></i> Mon - Fri: 8:00 AM - 6:00 PM<br />
+                Sat - Sun: 9:00 AM - 4:00 PM
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; <span id="year"></span> AutoHome. All rights reserved.
+            Designed for quality and service.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <button class="scroll-to-top" id="scrollToTop">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Set current year
+      document.getElementById("year").textContent = new Date().getFullYear();
+      // Loading animation
+      window.addEventListener("load", function () {
+        const loading = document.getElementById("loading");
+        setTimeout(() => {
+          loading.classList.add("hidden");
+        }, 1000);
+      });
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.offsetTop;
+            const offsetPosition = elementPosition - headerOffset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+      // Update active nav link on scroll
+      window.addEventListener("scroll", function () {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+        const scrollToTop = document.getElementById("scrollToTop");
+        let current = "";
+        const scrollPosition = window.scrollY + 100;
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (
+            scrollPosition >= sectionTop &&
+            scrollPosition <= sectionTop + sectionHeight
+          ) {
+            current = section.getAttribute("id");
+          }
+        });
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+          }
+        });
+        if (window.scrollY > 300) {
+          scrollToTop.classList.add("visible");
+        } else {
+          scrollToTop.classList.remove("visible");
+        }
+      });
+      // Scroll to top functionality
+      document
+        .getElementById("scrollToTop")
+        .addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      // Gallery filtering functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const galleryItems = document.querySelectorAll(".gallery-item");
+        function filterItems(category) {
+          galleryItems.forEach((item) => {
+            if (
+              category === "all" ||
+              item.getAttribute("data-category") === category
+            ) {
+              item.classList.remove("hidden");
+              item.style.display = "block";
+            } else {
+              item.classList.add("hidden");
+              setTimeout(() => {
+                if (item.classList.contains("hidden")) {
+                  item.style.display = "none";
+                }
+              }, 400);
+            }
+          });
+          const visibleItems = document.querySelectorAll(
+            ".gallery-item:not(.hidden)"
+          );
+          let noResults = document.querySelector(".no-results");
+          if (visibleItems.length === 0) {
+            if (!noResults) {
+              noResults = document.createElement("div");
+              noResults.classList.add("no-results");
+              noResults.innerHTML =
+                "<h3>No products found in this category</h3><p>Please try another category</p>";
+              document.querySelector(".gallery-grid").appendChild(noResults);
+            }
+          } else if (noResults) {
+            noResults.remove();
+          }
+        }
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            filterButtons.forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+            const filterValue = this.getAttribute("data-filter");
+            filterItems(filterValue);
+          });
+        });
+      });
+      // Form submission
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const submitBtn = this.querySelector(".submit-btn");
+          const originalText = submitBtn.innerHTML;
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Sending...';
+          submitBtn.disabled = true;
+          setTimeout(() => {
+            alert("Thank you for your message! We will get back to you soon.");
+            this.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }, 2000);
+        });
+      // Animate elements on scroll
+      const animateOnScroll = function () {
+        const elements = document.querySelectorAll(
+          ".category-card, .gallery-card, .about-content > *"
+        );
+        elements.forEach((element) => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.3;
+          if (elementPosition < screenPosition) {
+            element.classList.add("fade-in-up");
+          }
+        });
+      };
+      window.addEventListener("scroll", animateOnScroll);
+      animateOnScroll();
+    </script>
+  </body>
+</html>
